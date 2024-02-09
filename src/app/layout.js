@@ -2,7 +2,6 @@ import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import ContextProvider from "@/context/ContextProvider";
-import SuperTokenInitialaize from "@/components/auth/superTokenIntialaize";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <SuperTokenInitialaize />
+        {/* <SuperTokenInitialaize /> */}
         <ThemeRegistry>
           <ContextProvider>{children}</ContextProvider>
         </ThemeRegistry>

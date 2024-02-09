@@ -53,7 +53,7 @@ function Onbording() {
 
   return (
     <>
-      <Box>
+      {/* <Box>
         <OnboardingPage
           pageData={
             globalState?.onbordingQuestions?.list[onBoardState?.pageNum]
@@ -61,7 +61,7 @@ function Onbording() {
           pageNum={onBoardState?.pageNum}
           onBoardDispatch={onBoardDispatch}
         />
-      </Box>
+      </Box> */}
     </>
   );
 }

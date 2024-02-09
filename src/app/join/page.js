@@ -46,7 +46,7 @@ const CompaniesLogo = [
 function page() {
   return (
     <Box>
-      <Grid container>
+      {/* <Grid container>
         <Grid item lg={6} xl={6}>
           <Box sx={leftParentBox}>
             <Box sx={{ width: "180px" }}>
@@ -88,7 +88,7 @@ function page() {
             </Stack>
           </Box>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Box>
   );
 }

@@ -81,6 +81,13 @@ const theme = createTheme({
       color: "rgba(0, 0, 0, 0.45)",
     },
   },
+  job_detail_subtitle: {
+    fontSize: "15px",
+    fontWeight: 400,
+    color: "#6B6F76",
+    letterSpacing: "0.5px",
+  },
+
 
   components: {
     MuiButton: {
