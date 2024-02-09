@@ -1,16 +1,28 @@
 {
-  "name": "biggworks-careers",
+  "name": "kalibreai-b2c",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8081",
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.7",
+    "@mui/material": "^5.15.7",
+    "@mui/material-nextjs": "^5.15.5",
+    "axios": "^1.6.7",
+    "dayjs": "^1.11.10",
+    "mui-one-time-password-input": "^2.0.1",
+    "mui-tel-input": "^5.0.0",
+    "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.1.0"
+    "react-hook-form": "^7.50.0",
+    "supertokens-web-js": "^0.6.0"
   }
 }
