@@ -1,7 +1,7 @@
 
 
 //api paths
-export const JOBS_PATH = "search/b2cjobs"
+export const JOBS_PATH = "search/jobs"
 export const FILTERS_PATH = "b2c/filters"
 export const ONBOARDING_QUETIONS = "candidates/getcandonboard"
 

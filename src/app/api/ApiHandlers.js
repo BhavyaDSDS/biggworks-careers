@@ -182,3 +182,15 @@ export const getOnboardingPages = async (data, dispatch) => {
     console.log("Error from getOnboardingPages :", error);
   }
 };
+
+
+//get job by id
+export const getJobByID = async (id) => {
+  try {
+    const response = await api.get(`jobs/jobs/${id}`);
+    console.log("ResponseResponse",response )
+    return response.data;
+  } catch (error) {
+    console.log("Error from getJobByID: ", error);
+  }
+};

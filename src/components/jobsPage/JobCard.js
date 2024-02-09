@@ -18,10 +18,10 @@ import { APPLY_BUTTON_STRING } from "@/constants/TextConstants";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { useCallback, useState } from "react";
 import LocationView from "./LocationView";
-
+import { useRouter } from "next/navigation";
 function JobCard(props) {
   const {
-    
+    id,
     job_title,
     employer_logo,
     employer_name,
@@ -41,7 +41,12 @@ function JobCard(props) {
   const applyJob = useCallback((url) => {
     window.open(url, "_blank");
   }, []);
-
+const router = useRouter();
+  const handleClick = (id) => {
+    // Your click handling logic goes here
+    console.log('Typography clicked');
+    router.push(`jobs/${id}`)
+  };
   return (
     <>
       <Card
@@ -51,7 +56,9 @@ function JobCard(props) {
         <CardHeader
           avatar={<CompanyAvatar url={employer_logo} />}
           title={
-            <Typography variant="h6" sx={{ fontWeight: 500 }}>
+            <Typography variant="h6" onClick={() =>
+              handleClick(id)
+            } sx={{ fontWeight: 500, cursor:"pointer"  }}>
               {job_title}
             </Typography>
           }
