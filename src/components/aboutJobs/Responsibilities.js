@@ -2,52 +2,55 @@ import React, { useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import DOMPurify from "dompurify";
 import { useTheme } from "@mui/system";
+import RemoveHtmlTags from "./RemoveHtmlTags";
 
 const Responsibilities = ({ jobData }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const theme = useTheme();
 
-  const sanitizedHTML = DOMPurify.sanitize(jobData?.responsibilities);
-  console.log("responsibilities", DOMPurify.sanitize(jobData?.responsibilities));
-  // Function to parse HTML and apply conditions
-  const parseAndFormatHTML = (htmlString, expanded) => {
-    const tempDivElement = document.createElement("div");
-    tempDivElement.innerHTML = htmlString;
+  // const sanitizedHTML = DOMPurify.sanitize(jobData?.responsibilities);
+  // console.log("responsibilities", DOMPurify.sanitize(jobData?.responsibilities));
+  // // Function to parse HTML and apply conditions
+  // const parseAndFormatHTML = (htmlString, expanded) => {
+  //   const tempDivElement = document.createElement("div");
+  //   tempDivElement.innerHTML = htmlString;
 
-    const pTag = tempDivElement.querySelector("p");
-    const liTags = tempDivElement.querySelectorAll("li");
+  //   const pTag = tempDivElement.querySelector("p");
+  //   const liTags = tempDivElement.querySelectorAll("li");
 
-    let formattedContent = "";
+  //   let formattedContent = "";
 
-    if (pTag) {
-      formattedContent = expanded
-        ? pTag.textContent
-        : pTag.textContent.slice(0, 303);
-    } else if (liTags.length) {
-      const limit = expanded ? liTags.length : 3;
-      for (let i = 0; i < liTags.length && i < limit; i++) {
-        formattedContent += `• ${liTags[i].textContent}\n`;
-      }
-    }
+  //   if (pTag) {
+  //     formattedContent = expanded
+  //       ? pTag.textContent
+  //       : pTag.textContent.slice(0, 303);
+  //   } else if (liTags.length) {
+  //     const limit = expanded ? liTags.length : 3;
+  //     for (let i = 0; i < liTags.length && i < limit; i++) {
+  //       formattedContent += `• ${liTags[i].textContent}\n`;
+  //     }
+  //   }
 
-    return formattedContent;
-  };
+  //   return formattedContent;
+  // };
 
-  const displayContent = parseAndFormatHTML(sanitizedHTML, isExpanded);
+  // const displayContent = parseAndFormatHTML(sanitizedHTML, isExpanded);
 
-  const toggleReadMore = () => {
-    setIsExpanded(!isExpanded);
-  };
+  // const toggleReadMore = () => {
+  //   setIsExpanded(!isExpanded);
+  // };
 
   return (
     <Box mt={1}>
-      <Typography
+      {/* <Typography
         // className="job-list-sub-title"
         sx={theme.job_list_sub_title}
         whiteSpace="pre-line"
       >
         {sanitizedHTML}
-      </Typography>
+      </Typography> */}
+
+      <RemoveHtmlTags requirement={jobData?.responsibilities}/>
       {/* {(sanitizedHTML.length > 303 ||
         jobData?.responsibilities?.includes("<li>")) && (
         <Box

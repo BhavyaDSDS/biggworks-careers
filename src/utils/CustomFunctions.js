@@ -115,11 +115,13 @@ export const createQuary = (selectedFiltersList) => {
         !Array.isArray(values) &&
         values !== null &&
         values !== undefined
+
       ) {
         // If it's the first query parameter, append "/?" followed by key__in=values
         // Otherwise, append "&" followed by key=values
         if (isFirstQueryParam) {
-          url += `/?${key}=${values}`;
+          url += `&${key}=${values}`;
+          console.log("isFirstQueryParamisFirstQueryParam",url )
           isFirstQueryParam = false;
         } else {
           url += `&${key}=${values}`;

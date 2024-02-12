@@ -88,6 +88,10 @@ const theme = createTheme({
     letterSpacing: "0.5px",
   },
 
+  jobDescription_outline:{
+
+  },
+
 
   components: {
     MuiButton: {

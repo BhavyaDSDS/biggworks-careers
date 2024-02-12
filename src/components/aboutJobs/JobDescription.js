@@ -1,9 +1,11 @@
 import {
+    AppBar,
   Box,
   Container,
   Divider,
   Grid,
   Stack,
+  Toolbar,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -15,6 +17,8 @@ import MinimumRequirements from "./MinimumRequirements";
 import PrefferedRequirements from "./PrefferedRequirements";
 import Responsibilities from "./Responsibilities";
 import { useTheme } from "@mui/system";
+import Navbar from "../layoutsComponents/Navbar";
+import { auto } from "@popperjs/core";
 
 function JobDescription(props) {
   const { job } = props;
@@ -52,13 +56,14 @@ function JobDescription(props) {
   console.log("Job***", job);
   return (
     <div>
-      <Container>
+      <Box width={"69%"} margin={auto}>
+      <Box marginBottom={12}>
+        <Navbar/>
+        </Box>
         <Grid container>
-          <Grid xs={2} sx={{ backgroundColor: "ThreeDFace" }}>
-            Item
-          </Grid>
-          <Grid xs={7} sx={{ backgroundColor: "lavender" }}>
-            <Box sx={{ padding: "5px" }}>
+         
+          <Grid xs={7} >
+            <Box sx={{ padding: "22px", border:"1px solid gray" }}>
               <Box>
                 <img
                   src="https://res.cloudinary.com/kalibre-ai/image/upload/v1690885218/b2c%20images/company_active_yktqaj.png"
@@ -187,12 +192,13 @@ function JobDescription(props) {
                 <Responsibilities jobData={job} />
               </Stack>
             </Box>
+             
           </Grid>
-          <Grid xs={3} sx={{ backgroundColor: "moccasin" }}>
-            Item3
+          <Grid xs={3} >
+            
           </Grid>
         </Grid>
-      </Container>
+      </Box>
     </div>
   );
 }

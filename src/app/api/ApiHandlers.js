@@ -187,7 +187,7 @@ export const getOnboardingPages = async (data, dispatch) => {
 //get job by id
 export const getJobByID = async (id) => {
   try {
-    const response = await api.get(`jobs/jobs/${id}`);
+    const response = await api.get(`jobs/vt/${id}`);
     console.log("ResponseResponse",response )
     return response.data;
   } catch (error) {

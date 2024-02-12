@@ -50,15 +50,18 @@ const router = useRouter();
   return (
     <>
       <Card
+      onClick={() =>
+        handleClick(id)
+      }
+
+      sx={{cursor:"pointer"}}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <CardHeader
           avatar={<CompanyAvatar url={employer_logo} />}
           title={
-            <Typography variant="h6" onClick={() =>
-              handleClick(id)
-            } sx={{ fontWeight: 500, cursor:"pointer"  }}>
+            <Typography variant="h6"  sx={{ fontWeight: 500, cursor:"pointer"  }}>
               {job_title}
             </Typography>
           }

@@ -17,7 +17,7 @@ import { getJobs } from "./api/ApiHandlers";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ResultNotFound from "@/components/jobsPage/ResultNotFound";
-import Navbar from "../components/Navbar";
+import Navbar from "@/components/layoutsComponents/Navbar";
 
 function Home() {
   const { globalState, dispatch } = useContext(MyContext);
@@ -39,7 +39,7 @@ function Home() {
         sx={{ marginTop: "50px", marginBottom: "150px" }}
       >
         <Box marginBottom={22}>
-          <Navbar />
+          <Navbar/>
         </Box>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={12} md={4} lg={3.5} xl={3.5}>
@@ -62,7 +62,6 @@ function Home() {
               ) : (
                 <>
                   {globalState?.job_list?.list?.map((data) => (
-                   
                     <JobCard {...data} key={data?.id} />
                   ))}
                 </>

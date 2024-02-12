@@ -7,40 +7,41 @@ function Navbar() {
 
   return (
     <div >
-      <AppBar sx={{ background: "#fff", boxShadow:"none", marginBottom:"22px"}}>
+      <AppBar sx={{ background: "#fff", boxShadow:"none", marginBottom:"22px", padding:"1.4rem 1rem"}}>
         <Toolbar >
 
-          <Box sx={{width:"90%",background:"#fff",maxWidth:"90rem",margin:"auto",display:"flex",alignItems:"center"}}>
+          <Box sx={{width:"100%",background:"#fff",maxWidth:"118rem",margin:"auto",display:"flex",alignItems:"center"}}>
           <Box sx={{ flexGrow: 1 }}>
 
             <Link href="https://biggworks.com/">
               <img
+              style={{width:"95px", height:"63px"}}
                 src="https://res.cloudinary.com/biggworks/image/upload/v1697800312/logo/Biggworks-logo.svg"
                 alt=""
               />
             </Link>
           </Box>
-          <Box sx={{ display: "flex", gap: "22px" }}>
+          <Box sx={{ display: "flex", gap: "42px" }}>
             <Link href="https://biggworks.com/services/" underline="none">
-              <Typography sx={{letterSpacing:"0.6px", fontSize:"100%", fontWeight:500, color:"#1d2a3d"}}>Sevices</Typography>
+              <Typography sx={{letterSpacing:"0.6px", fontSize:"17px", fontWeight:400, color:"#1d2a3d"}}>Sevices</Typography>
             </Link>
             <Link href="https://biggworks.com/works/" underline="none">
               <Typography
-                sx={{ color: "#1d2a3d", fontWeight: 500, fontSize: "90%" }}
+                sx={{ letterSpacing:"0.6px", color: "#1d2a3d", fontWeight: 400, fontSize: "17px" }}
               >
                 Works
               </Typography>
             </Link>
             <Link href="https://biggworks.com/articles/" underline="none">
               <Typography
-                sx={{ color: "#1d2a3d", fontWeight: 500, fontSize: "90%" }}
+                sx={{ letterSpacing:"0.6px", color: "#1d2a3d", fontWeight: 400, fontSize: "17px" }}
               >
                 Posts
               </Typography>
             </Link>
             <Link href="https://biggworks.com/careers/" underline="none">
               <Typography
-                sx={{ color: "#1d2a3d", fontWeight: 500, fontSize: "90%" }}
+                sx={{ letterSpacing:"0.6px", color: "#1d2a3d", fontWeight: 400, fontSize: "17px" }}
               >
                 Careers
               </Typography>
@@ -48,7 +49,7 @@ function Navbar() {
             <Link href="
             https://biggworks.com/contact/" underline="none">
               <Typography
-                sx={{ color: "#1d2a3d", fontWeight: 500, fontSize: "90%" }}
+                sx={{ letterSpacing:"0.6px", color: "#1d2a3d", fontWeight: 400, fontSize: "17px" }}
               >
                 Contact
               </Typography>

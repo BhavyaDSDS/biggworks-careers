@@ -16,7 +16,9 @@ export default function RootLayout({ children }) {
       <body>
         {/* <SuperTokenInitialaize /> */}
         <ThemeRegistry>
-          <ContextProvider>{children}</ContextProvider>
+          <ContextProvider>
+            {children}
+          </ContextProvider>
         </ThemeRegistry>
       </body>
     </html>
