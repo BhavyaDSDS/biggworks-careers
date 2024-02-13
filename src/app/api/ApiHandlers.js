@@ -194,3 +194,34 @@ export const getJobByID = async (id) => {
     console.log("Error from getJobByID: ", error);
   }
 };
+
+// get roles
+export const getRoles = async (data) => {
+  try {
+    const response = await api.get(data);
+    return response.data;
+  } catch (error) {
+    console.log("Error from getRoles: ", error);
+  }
+};
+
+// get skills
+export const getSkills = async (data) => {
+  try {
+    const response = await api.get(data);
+    return response.data;
+  } catch (error) {
+    console.log("Error from getSkills: ", error);
+  }
+};
+
+
+// get locations
+export const getLocations = async (data) => {
+  try {
+    const response = await api.get(data);
+    return response.data;
+  } catch (error) {
+    console.log("Error from getSkills: ", error);
+  }
+};

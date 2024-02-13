@@ -49,6 +49,7 @@ const router = useRouter();
   };
   return (
     <>
+    
       <Card
       onClick={() =>
         handleClick(id)

@@ -1,6 +1,7 @@
 import {
     AppBar,
   Box,
+  Button,
   Container,
   Divider,
   Grid,
@@ -8,7 +9,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import WorkLocations from "./WorkLocations";
@@ -19,9 +20,19 @@ import Responsibilities from "./Responsibilities";
 import { useTheme } from "@mui/system";
 import Navbar from "../layoutsComponents/Navbar";
 import { auto } from "@popperjs/core";
+import JobForm from "./JobForm";
 
 function JobDescription(props) {
   const { job } = props;
+  const [jobModalOpen, setJobModalOpen] = useState(false)
+
+  const handleOpenModal = () =>{
+    setJobModalOpen(true);
+  }
+
+  const handleCloseModal = () =>{
+    setJobModalOpen(false)
+  }
 //   const job = {
 //     job_title: "Data Engineer",
 //     relevant_exp: 5,
@@ -64,11 +75,19 @@ function JobDescription(props) {
          
           <Grid xs={7} >
             <Box sx={{ padding: "22px", border:"1px solid gray" }}>
-              <Box>
+              <Box sx={{display:"flex", justifyContent:"space-between"}}>
                 <img
                   src="https://res.cloudinary.com/kalibre-ai/image/upload/v1690885218/b2c%20images/company_active_yktqaj.png"
                   alt=""
                 />
+                <Button onClick={handleOpenModal} >Apply</Button>
+                {
+                  jobModalOpen && (<JobForm jobModalOpen={jobModalOpen}
+                    handleOpenModal={handleOpenModal}
+                    handleCloseModal={handleCloseModal}
+
+                  />)
+                }
               </Box>
 
               <Typography variant="h5" fontWeight={900}>

@@ -6,7 +6,6 @@ const theme = createTheme({
     htmlFontSize: 14,
     color: "#222222",
 
-
     h1: {
       fontSize: "2.5rem",
       fontWeight: "600",
@@ -88,10 +87,26 @@ const theme = createTheme({
     letterSpacing: "0.5px",
   },
 
-  jobDescription_outline:{
+  jobDescription_outline: {},
 
+  apply_button: {},
+
+  modal_card: {
+    position: "absolute",
+    top: "15%",
+    left: "36%",
+    width: "600px",
+    padding:"22px",
+    maxHeight: { xs: "60vh", sm: "calc(77vh)" },
+    overflow: "auto",
+    scrollBehavior: "smooth",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
-
+  errorMessage: {
+    fontSize: "12px",
+  },
 
   components: {
     MuiButton: {
@@ -126,7 +141,7 @@ const theme = createTheme({
           borderRadius: "8px",
         },
       },
-    },    
+    },
   },
 });
 

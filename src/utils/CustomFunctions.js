@@ -154,3 +154,104 @@ export const moveToFirstIndex = (array, selected) => {
   // console.log("first value ===",tempArray);
   return tempArray;
 };
+
+
+//creating the relaventexp option based on total exp
+export const createOptions = (num) => {
+  const options = [];
+
+  for (let i = 1; i <= num; i += 0.5) {
+    const option = {
+      name: `${i} years`,
+      value: i,
+    };
+
+    options.push(option);
+  }
+
+  return options;
+};
+
+//validating particular field
+export const isDisplayError = (name, required, globalError, message) => {
+  if (required) {
+
+    if(Array.isArray(name)){
+
+      if ((!isEmptyArray(name) && globalError) || message != null) {
+        return true;
+      }
+
+    }else{
+
+      if ((name === null && globalError) || message != null) {
+        return true;
+      }
+
+    }
+
+
+   
+  } else {
+    return false;
+  }
+};
+
+//calcaleting  file size
+export const getFileSize = (bytes) => {
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+
+  if (bytes === 0) return "0 Byte";
+
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+
+  return Math.round(100 * (bytes / Math.pow(1024, i))) / 100 + " " + sizes[i];
+};
+
+
+//genareating the time slots
+export const generateTimeOptions = () => {
+  const times = [];
+
+  // Get the current time
+  const currentTime24Hr = dayjs().format("HH:mm");
+
+  for (let i = 0; i < 24; i++) {
+    for (let j = 0; j < 60; j += 30) {
+      const time = dayjs().hour(i).minute(j);
+      const value = time.format("HH:mm"); // 24-hour format
+      const label = time.format("hh:mm A"); // 12-hour format with AM/PM
+      times.push({ value, label });
+    }
+  }
+
+  //get the current time index
+  const startIndex = times.findIndex((option) => {
+    let value = option.value.split(":");
+    let current = currentTime24Hr.split(":");
+    return value[0] === current[0];
+  });
+
+  // get current time to 0th index
+  if (startIndex !== -1) {
+    const part1 = times.slice(startIndex);
+    const part2 = times.slice(0, startIndex);
+    const circularTimes = [...part1, ...part2];
+
+    return circularTimes;
+  }
+
+  return times;
+};
+
+// making the readable slot
+export const makeReadableFormate = (data) => {
+  return (
+    <Stack direction="row" spacing={1}>
+      <span>{dayjs(data?.dateObject).format("DD MMM")},</span>
+      <span>{data?.time?.[0]} </span>
+      <span>-</span>
+      <span>{data?.time?.[1]} </span>
+    </Stack>
+  );
+};
