@@ -1,13 +1,16 @@
 import {
-    AppBar,
+  AppBar,
   Box,
   Button,
+  Card,
+  CardHeader,
   Container,
   Divider,
   Grid,
   Stack,
   Toolbar,
   Typography,
+  Link,
 } from "@mui/material";
 import React, { useState } from "react";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
@@ -21,81 +24,180 @@ import { useTheme } from "@mui/system";
 import Navbar from "../layoutsComponents/Navbar";
 import { auto } from "@popperjs/core";
 import JobForm from "./JobForm";
-
+import { createQuary, isEmptyObject } from "@/utils/CustomFunctions";
+import { useContext, useEffect } from "react";
+import { MyContext } from "@/context/ContextProvider";
+import { getJobs } from "@/app/api/ApiHandlers";
+import { LOADING_SUCCESS } from "@/constants/TextConstants";
+import { useRouter } from "next/navigation";
+import JobsCardContent from "../jobsPage/JobsCardContent";
+import { Icon } from "@iconify/react";
 function JobDescription(props) {
   const { job } = props;
-  const [jobModalOpen, setJobModalOpen] = useState(false)
+  const [jobModalOpen, setJobModalOpen] = useState(false);
+  const { globalState, dispatch } = useContext(MyContext);
+  const router = useRouter();
+  console.log("jobjobjobjobjob", job);
+  useEffect(() => {
+    let quary = createQuary(globalState.selectedFilters);
 
-  const handleOpenModal = () =>{
+    if (!isEmptyObject(globalState.selectedFilters)) {
+      getJobs(quary, dispatch);
+    }
+  }, [globalState.selectedFilters]);
+
+  console.log("globalStateglobalState_JobDescription", globalState);
+  const handleOpenModal = () => {
     setJobModalOpen(true);
-  }
-
-  const handleCloseModal = () =>{
-    setJobModalOpen(false)
-  }
-//   const job = {
-//     job_title: "Data Engineer",
-//     relevant_exp: 5,
-//     total_exp: [5, 7],
-//     salary_range_min: 1000000,
-//     salary_range_max: 1500000,
-//     work_locations: ["Banglore", "wWest Bengalore", "South Bengalore"],
-//     work_type: [],
-//     job_description:
-//       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
-//     minimum_requirements:
-//       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
-//     responsibilities:
-//       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
-//     pri_tech_skills_l: [
-//       "CSS3",
-//       "Animation",
-//       "Responsiveness",
-//       "ReactJS",
-//       "NodeJS",
-//       "Strong Coding",
-//       "Data Structure And Algorithms",
-//       "Debugging",
-//     ],
-//     employer_logo:
-//       "https://res.cloudinary.com/kalibre-ai/image/upload/v1690885218/b2c%20images/company_active_yktqaj.png",
-//     preferred_requirements:
-//       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
-//   };
+  };
+  console.log("dataJobId", globalState?.job_list?.list[0]?.id);
+  const handleCloseModal = () => {
+    setJobModalOpen(false);
+  };
+  //   const job = {
+  //     job_title: "Data Engineer",
+  //     relevant_exp: 5,
+  //     total_exp: [5, 7],
+  //     salary_range_min: 1000000,
+  //     salary_range_max: 1500000,
+  //     work_locations: ["Banglore", "wWest Bengalore", "South Bengalore"],
+  //     work_type: [],
+  //     job_description:
+  //       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
+  //     minimum_requirements:
+  //       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
+  //     responsibilities:
+  //       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
+  //     pri_tech_skills_l: [
+  //       "CSS3",
+  //       "Animation",
+  //       "Responsiveness",
+  //       "ReactJS",
+  //       "NodeJS",
+  //       "Strong Coding",
+  //       "Data Structure And Algorithms",
+  //       "Debugging",
+  //     ],
+  //     employer_logo:
+  //       "https://res.cloudinary.com/kalibre-ai/image/upload/v1690885218/b2c%20images/company_active_yktqaj.png",
+  //     preferred_requirements:
+  //       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
+  //   };
   const theme = useTheme();
-
+  const handleClick = (id) => {
+    router.push(`${id}`);
+  };
   console.log("Job***", job);
   return (
     <div>
-      <Box width={"69%"} margin={auto}>
-      <Box marginBottom={12}>
-        <Navbar/>
+      <Box width={"95%"} margin={auto}>
+        <Box marginBottom={12}>
+          <Navbar />
         </Box>
-        <Grid container>
-         
-          <Grid xs={7} >
-            <Box sx={{ padding: "22px", border:"1px solid gray" }}>
-              <Box sx={{display:"flex", justifyContent:"space-between"}}>
-                <img
-                  src="https://res.cloudinary.com/kalibre-ai/image/upload/v1690885218/b2c%20images/company_active_yktqaj.png"
-                  alt=""
-                />
-                <Button onClick={handleOpenModal} >Apply</Button>
-                {
-                  jobModalOpen && (<JobForm jobModalOpen={jobModalOpen}
+        <Grid container gap={30}>
+          <Grid xs={3} mt={6}>
+            {/* {globalState?.job_list?.loading != LOADING_SUCCESS ? (
+              <> */}
+
+            <Stack
+              sx={{ cursor: "pointer" }}
+              onClick={() => router.push("/")}
+              direction={"row"}
+              spacing={1}
+              mb={4}
+              alignItems={"center"}
+            >
+              <Icon icon="gg:arrow-left-o" style={{ fontSize: "32px" }} />
+              <Typography variant="h6"> Back to jobs search</Typography>
+            </Stack>
+
+            <Stack direction={"column"} spacing={4}>
+              {globalState?.job_list?.list?.map((data) => {
+                return data.total_exp_min &&
+                  data.total_exp_max &&
+                  data.relevant_exp &&
+                  data.work_locations &&
+                  data.salary_range_min &&
+                  data.salary_range_max &&
+                  data.pri_tech_skills_l &&
+                  data.role_name ? (
+                  <Card onClick={() => handleClick(data.id)}>
+                    <CardHeader
+                      // avatar={<CompanyAvatar url={employer_logo} />}
+                      title={
+                        <Typography
+                          variant="h6"
+                          sx={{ fontWeight: 700, cursor: "pointer" }}
+                        >
+                          {data.job_title}
+                        </Typography>
+                      }
+                      // subheader={
+                      //   <Typography variant="subtitle1">{employer_name}</Typography>
+                      // }
+                      // action={
+                      //   <Typography variant="secondary">
+                      //     {datePostedOn}
+                      //   </Typography>
+                      // }
+                    />
+                    <JobsCardContent
+                      job_title={data.job_title}
+                      datePostedOn={data.datePostedOn}
+                      total_exp_min={data.total_exp_min}
+                      total_exp_max={data.total_exp_max}
+                      relevant_exp={data.relevant_exp}
+                      work_locations={data.work_locations}
+                      salary_range_min={data.salary_range_min}
+                      salary_range_max={data.salary_range_max}
+                      pri_tech_skills_l={data.pri_tech_skills_l}
+                      role_name={data.role_name}
+                    />
+                  </Card>
+                ) : null;
+              })}
+            </Stack>
+            {/* </>
+            ) : (
+              ""
+            )} */}
+          </Grid>
+          <Grid xs={6}>
+            <Card
+              sx={{
+                padding: "30px",
+                border: "1px solid gray",
+                marginTop: "110px",
+              }}
+            >
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                {jobModalOpen && (
+                  <JobForm
+                    jobModalOpen={jobModalOpen}
                     handleOpenModal={handleOpenModal}
                     handleCloseModal={handleCloseModal}
-
-                  />)
-                }
+                  />
+                )}
               </Box>
-
-              <Typography variant="h5" fontWeight={900}>
-                {job?.job_title}
-              </Typography>
-
-              <Stack spacing={1.9} justifyContent={"center"}>
-                {job?.total_exp?.[1] != null && (
+              <Card
+                sx={{
+                  backgroundColor: "#F2FEFF",
+                  borderRadius: "2px",
+                  border: "none",
+                  padding: "20px",
+                  boxShadow: "none",
+                }}
+              >
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography variant="h5" fontWeight={900}>
+                    {job?.job_title}
+                  </Typography>
+                  <Button onClick={handleOpenModal} variant="contained">
+                    Apply
+                  </Button>
+                </Box>
+                {/* <Stack spacing={1.9} justifyContent={"center"}> */}
+                {/* {job?.total_exp?.[1] != null && (
                   <>
                     <Box>
                       <Stack
@@ -123,9 +225,11 @@ function JobDescription(props) {
                       </Typography>
                     </Box>
                   </>
-                )}
+                )} */}
 
-                {job?.work_locations?.length > 0 && <WorkLocations jobData={job} />}
+                {/* {job?.work_locations?.length > 0 && (
+                  <WorkLocations jobData={job} />
+                )}
 
                 {job?.salary_range_min != null &&
                   job?.salary_range_max != null && (
@@ -161,60 +265,70 @@ function JobDescription(props) {
                   {job?.pri_tech_skills_l?.length > 0 && (
                     <PrimaryTechSkills jobData={job} />
                   )}
-                </Box>
-                <Divider sx={{ marginTop: "24px" }} />
+                </Box> */}
+
+                {/* <Divider sx={{ marginTop: "24px" }} /> */}
                 <Box>
-                  <Typography
-                    mt={3}
-                    // className="regarding-job"
-                    sx={theme.regarding_job}
-                    pb="12px"
-                  >
-                    Regarding This Position
-                  </Typography>
+                  <JobsCardContent
+                    total_exp_min={job?.total_exp[0]}
+                    total_exp_max={job?.total_exp[1]}
+                    relevant_exp={job?.relevant_exp}
+                    work_locations={job?.work_locations}
+                    salary_range_min={job?.salary_range_min}
+                    salary_range_max={job?.salary_range_max}
+                    pri_tech_skills_l={job?.pri_tech_skills_l}
+                    role_name={job?.role_l}
+                  />
                 </Box>
-                <Box>
-                  <Typography
-                    mt={2}
-                    // className="job-list-title"
-                    sx={theme.job_list_title}
-                  >
-                    Minimum Requirements:
-                  </Typography>
-                </Box>
+              </Card>
+              <Box>
+                <Typography
+                  mt={3}
+                  // className="regarding-job"
+                  sx={theme.regarding_job}
+                  pb="12px"
+                >
+                  Regarding This Position
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  mt={2}
+                  // className="job-list-title"
+                  sx={theme.job_list_title}
+                >
+                  Minimum Requirements:
+                </Typography>
+              </Box>
 
-                <MinimumRequirements jobData={job} />
+              <MinimumRequirements jobData={job} />
 
-                <Box mt={3}>
-                  <Typography
-                    c
-                    // lassName="job-list-title"
-                    sx={theme.job_list_title}
-                    mb="16px"
-                  >
-                    Preferred Requirements:
-                  </Typography>
-                </Box>
+              <Box mt={3}>
+                <Typography
+                  c
+                  // lassName="job-list-title"
+                  sx={theme.job_list_title}
+                  mb="16px"
+                >
+                  Preferred Requirements:
+                </Typography>
+              </Box>
 
-                <PrefferedRequirements jobData={job} />
+              <PrefferedRequirements jobData={job} />
 
-                <Box mt={3}>
-                  <Typography
-                    // className="job-list-title"
-                    sx={theme.job_list_title}
-                    mb="16px"
-                  >
-                    Responsibilities:
-                  </Typography>
-                </Box>
+              <Box mt={3}>
+                <Typography
+                  // className="job-list-title"
+                  sx={theme.job_list_title}
+                  mb="16px"
+                >
+                  Responsibilities:
+                </Typography>
+              </Box>
 
-                <Responsibilities jobData={job} />
-              </Stack>
-            </Box>
-             
-          </Grid>
-          <Grid xs={3} >
-            
+              <Responsibilities jobData={job} />
+              {/* </Stack> */}
+            </Card>
           </Grid>
         </Grid>
       </Box>

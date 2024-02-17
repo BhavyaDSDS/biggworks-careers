@@ -1,13 +1,15 @@
 "use client";
 
 import { isArrayIterable } from "@/utils/CustomFunctions";
-import { Box, Chip, Stack, Tooltip } from "@mui/material";
+import { Box, Chip,  Stack, Tooltip, useTheme } from "@mui/material";
+import { Icon } from "@iconify/react";
 import { useCallback, useEffect, useState } from "react";
 import theme from "../../theme/theme";
 
 function ResponsiveChips({ list }) {
   const [visibleChips, setVisibleChips] = useState([]);
   const [hiddenChips, setHiddenChips] = useState([]);
+  const theme = useTheme()
 
   const calculateEffectiveWidth = useCallback((string) => {
     const fontSize = theme.typography.fontSize; // Font size from your CSS
@@ -57,10 +59,12 @@ function ResponsiveChips({ list }) {
 
   return (
     <div className="responsiveContainer">
+      <Stack direction={"row"} spacing={1} alignItems={"center"} >
+        <Icon icon = "fluent:code-block-24-regular" style={{fontSize:"22px"}}/>
       <Stack direction="row" spacing={0.5}>
         {visibleChips?.map((data, idx) => {
           return (
-            <Chip key={idx} label={data} variant="outlined" size="small" />
+            <Chip sx={theme.skill_chips} key={idx} label={data} variant="outlined" size="small" />
           );
         })}
 
@@ -70,7 +74,7 @@ function ResponsiveChips({ list }) {
             <Box>
               <Stack direction="row" flexWrap="wrap" gap={0.5}>
                 {hiddenChips?.map((data, idx) => (
-                  <Chip
+                  <Chip sx={theme.skill_chips}
                     key={idx}
                     label={data}
                     variant="outlined"
@@ -90,8 +94,10 @@ function ResponsiveChips({ list }) {
           )}
         </Tooltip>
       </Stack>
+      </Stack>
     </div>
   );
 }
 
 export default ResponsiveChips;
+

@@ -12,14 +12,14 @@ function JobCardSkeleton() {
     <Card>
       <CardContent>
         <Stack direction="row" spacing={3}>
-          <Box>
+          {/* <Box>
             <Skeleton
               variant="squre"
               width={40}
               height={40}
               sx={{ borderRadius: "10px", marginTop: "8px" }}
             />
-          </Box>
+          </Box> */}
           <Stack direction="column" spacing={1}>
             <Box>
               <Typography variant="h1" width={650}>

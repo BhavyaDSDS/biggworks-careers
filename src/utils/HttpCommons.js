@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "https://dev.kalibre.ai/";  //development server
-// export const BASE_URL = "https://api.kalibre.ai/"; //production server
+const BASE_URL = "https://dev.kalibre.ai/api";  //development server
+// export const BASE_URL = "https://app.kalibre.ai/api "; //production server
 
 
 

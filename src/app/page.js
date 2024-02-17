@@ -18,10 +18,11 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ResultNotFound from "@/components/jobsPage/ResultNotFound";
 import Navbar from "@/components/layoutsComponents/Navbar";
+import theme from "@/theme/theme";
 
 function Home() {
   const { globalState, dispatch } = useContext(MyContext);
-
+  
   // console.log("api data =======",  === 0);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function Home() {
       getJobs(quary, dispatch);
     }
   }, [globalState.selectedFilters]);
-
+console.log("globalState?.job_list?.list[0]", globalState?.job_list?.list[0])
   return (
     <Box>
       <Container
@@ -61,9 +62,12 @@ function Home() {
                 <ResultNotFound />
               ) : (
                 <>
-                  {globalState?.job_list?.list?.map((data) => (
-                    <JobCard {...data} key={data?.id} />
-                  ))}
+                  {globalState?.job_list?.list?.map((data) => {
+                    console.log("globalState?.job_list?.list?.data", data)
+                    return( data.job_title && data.total_exp_min && data.total_exp_max && data.relevant_exp
+                       && data.work_locations && data.salary_range_min && data.salary_range_max && data.pri_tech_skills_l && data.role_name &&
+                    <JobCard {...data} key={data?.id} />)
+})}
                 </>
               )}
             </Stack>

@@ -33,7 +33,7 @@ const theme = createTheme({
       lineHeight: "1.4",
     },
     h6: {
-      fontSize: "1rem",
+      fontSize: "1.3rem",
       fontWeight: "500",
       lineHeight: "1.5",
     },
@@ -87,6 +87,16 @@ const theme = createTheme({
     letterSpacing: "0.5px",
   },
 
+  skill_chips:{
+    backgroundColor:"#e4f7ff",
+    border:"1px solid #96d1ff", 
+    color:"#6fa9ff"
+  },
+
+  location_chips:{
+    backgroundColor:"#fff",
+    border:"1px solid #ececec"
+  },
   jobDescription_outline: {},
 
   apply_button: {},

@@ -255,3 +255,11 @@ export const makeReadableFormate = (data) => {
     </Stack>
   );
 };
+
+export const floatToInteger = (data) =>{
+  return data / 1;
+}
+
+export const convertToLack = (number) =>{
+  return number/100000;
+}
