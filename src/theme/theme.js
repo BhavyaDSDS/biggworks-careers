@@ -92,6 +92,30 @@ const theme = createTheme({
     border:"1px solid #96d1ff", 
     color:"#6fa9ff"
   },
+  job_list_title: {
+    fontSize: "16px",
+    fontWeight: 600,
+    color: "#343434",
+    letterSpacing: "0.5px",
+  },
+  job_list_sub_title: {
+    fontSize: "15px",
+    fontWeight: 400,
+    color: "#787878",
+    letterSpacing: "0.5px",
+  },
+  job_detail_subtitle: {
+    fontSize: "15px",
+    fontWeight: 400,
+    color: "#6B6F76",
+    letterSpacing: "0.5px",
+  },
+  job_detail_information: {
+    fontSize: "15px",
+    fontWeight: 500,
+    color: "#3C4149",
+    letterSpacing: "0.5px",
+  },
 
   location_chips:{
     backgroundColor:"#fff",

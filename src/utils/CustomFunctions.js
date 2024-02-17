@@ -60,7 +60,7 @@ export const getFlagEmoji = (countryCode) => {
   return String.fromCodePoint(...codePoints);
 };
 
-export let INTIAL_SELECTED_FILTERS = {}
+export let INTIAL_SELECTED_FILTERS = {};
 
 //selected object  keys created
 export const createSelectedObject = (list) => {
@@ -77,7 +77,7 @@ export const createSelectedObject = (list) => {
     });
 
     //  console.log("object key getting ===",tempObj)
-    INTIAL_SELECTED_FILTERS = {...tempObj}
+    INTIAL_SELECTED_FILTERS = { ...tempObj };
     return tempObj;
   }
 };
@@ -115,13 +115,12 @@ export const createQuary = (selectedFiltersList) => {
         !Array.isArray(values) &&
         values !== null &&
         values !== undefined
-
       ) {
         // If it's the first query parameter, append "/?" followed by key__in=values
         // Otherwise, append "&" followed by key=values
         if (isFirstQueryParam) {
           url += `&${key}=${values}`;
-          console.log("isFirstQueryParamisFirstQueryParam",url )
+          console.log("isFirstQueryParamisFirstQueryParam", url);
           isFirstQueryParam = false;
         } else {
           url += `&${key}=${values}`;
@@ -155,7 +154,6 @@ export const moveToFirstIndex = (array, selected) => {
   return tempArray;
 };
 
-
 //creating the relaventexp option based on total exp
 export const createOptions = (num) => {
   const options = [];
@@ -175,23 +173,15 @@ export const createOptions = (num) => {
 //validating particular field
 export const isDisplayError = (name, required, globalError, message) => {
   if (required) {
-
-    if(Array.isArray(name)){
-
+    if (Array.isArray(name)) {
       if ((!isEmptyArray(name) && globalError) || message != null) {
         return true;
       }
-
-    }else{
-
+    } else {
       if ((name === null && globalError) || message != null) {
         return true;
       }
-
     }
-
-
-   
   } else {
     return false;
   }
@@ -207,7 +197,6 @@ export const getFileSize = (bytes) => {
 
   return Math.round(100 * (bytes / Math.pow(1024, i))) / 100 + " " + sizes[i];
 };
-
 
 //genareating the time slots
 export const generateTimeOptions = () => {
@@ -256,10 +245,31 @@ export const makeReadableFormate = (data) => {
   );
 };
 
-export const floatToInteger = (data) =>{
+export const floatToInteger = (data) => {
   return data / 1;
-}
+};
 
-export const convertToLack = (number) =>{
-  return number/100000;
-}
+export const convertToLack = (number) => {
+  return number / 100000;
+};
+
+export const LimitedJobDetail = (array) => {
+  let tempArray = [];
+
+  array?.forEach((data) => {
+    if (
+      data.total_exp_min &&
+      data.total_exp_max &&
+      data.relevant_exp &&
+      data.work_locations &&
+      data.salary_range_min &&
+      data.salary_range_max &&
+      data.pri_tech_skills_l &&
+      data.role_name &&
+      tempArray.length < 4
+    ) {
+      tempArray.push(data);
+    }
+  });
+  return tempArray;
+};

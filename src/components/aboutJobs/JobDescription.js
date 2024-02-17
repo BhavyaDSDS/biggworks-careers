@@ -32,10 +32,19 @@ import { LOADING_SUCCESS } from "@/constants/TextConstants";
 import { useRouter } from "next/navigation";
 import JobsCardContent from "../jobsPage/JobsCardContent";
 import { Icon } from "@iconify/react";
+
+import { LimitedJobDetail } from "@/utils/CustomFunctions";
+
+
+
+
 function JobDescription(props) {
   const { job } = props;
   const [jobModalOpen, setJobModalOpen] = useState(false);
+  const  [jobCardData, setJobCardData] = useState([]);
   const { globalState, dispatch } = useContext(MyContext);
+  const limitedJobCardRender = globalState?.job_list?.list?.slice(0, 4);
+  console.log("limitedJobCardRender", globalState?.job_list?.list);
   const router = useRouter();
   console.log("jobjobjobjobjob", job);
   useEffect(() => {
@@ -46,6 +55,10 @@ function JobDescription(props) {
     }
   }, [globalState.selectedFilters]);
 
+
+
+console.log("jobCardDatajobCardData", jobCardData)
+
   console.log("globalStateglobalState_JobDescription", globalState);
   const handleOpenModal = () => {
     setJobModalOpen(true);
@@ -54,6 +67,11 @@ function JobDescription(props) {
   const handleCloseModal = () => {
     setJobModalOpen(false);
   };
+
+  console.log(
+    "globalState?.job_list?.list?.length",
+    globalState?.job_list?.list
+  );
   //   const job = {
   //     job_title: "Data Engineer",
   //     relevant_exp: 5,
@@ -88,6 +106,23 @@ function JobDescription(props) {
     router.push(`${id}`);
   };
   console.log("Job***", job);
+useEffect(() =>{
+
+ 
+
+  if(globalState?.job_list?.list?.length > 0) {
+
+    const limit = LimitedJobDetail(globalState?.job_list?.list)
+    console.log("qqq limited numbers hsbfauz",limit)
+    setJobCardData(limit);
+
+  }
+
+
+
+
+}, [globalState])
+   
   return (
     <div>
       <Box width={"95%"} margin={auto}>
@@ -121,7 +156,7 @@ function JobDescription(props) {
                   data.salary_range_max &&
                   data.pri_tech_skills_l &&
                   data.role_name ? (
-                  <Card onClick={() => handleClick(data.id)}>
+                  <Card sx={{cursor:"pointer"}} onClick={() => handleClick(data.id)}>
                     <CardHeader
                       // avatar={<CompanyAvatar url={employer_logo} />}
                       title={
@@ -281,54 +316,109 @@ function JobDescription(props) {
                   />
                 </Box>
               </Card>
-              <Box>
-                <Typography
-                  mt={3}
-                  // className="regarding-job"
-                  sx={theme.regarding_job}
-                  pb="12px"
-                >
-                  Regarding This Position
-                </Typography>
-              </Box>
-              <Box>
-                <Typography
-                  mt={2}
-                  // className="job-list-title"
-                  sx={theme.job_list_title}
-                >
-                  Minimum Requirements:
-                </Typography>
-              </Box>
 
-              <MinimumRequirements jobData={job} />
+              {job?.minimum_requirements &&
+              job?.preferred_requirements &&
+              job?.responsibilities ? (
+                <Box>
+                  
+                  <Box>
+                    <Typography
+                      mt={2}
+                      // className="job-list-title"
+                      sx={theme.job_list_title}
+                      variant="h6"
+                    >
+                      Minimum Requirements:
+                    </Typography>
+                  </Box>
 
-              <Box mt={3}>
-                <Typography
-                  c
-                  // lassName="job-list-title"
-                  sx={theme.job_list_title}
-                  mb="16px"
-                >
-                  Preferred Requirements:
-                </Typography>
-              </Box>
+                  <MinimumRequirements jobData={job} />
 
-              <PrefferedRequirements jobData={job} />
+                  <Box mt={3}>
+                    <Typography
+                      
+                      // lassName="job-list-title"
+                      sx={theme.job_list_title}
+                      mb="16px"
+                    >
+                      Preferred Requirements:
+                    </Typography>
+                  </Box>
 
-              <Box mt={3}>
-                <Typography
-                  // className="job-list-title"
-                  sx={theme.job_list_title}
-                  mb="16px"
-                >
-                  Responsibilities:
-                </Typography>
-              </Box>
+                  <PrefferedRequirements jobData={job} />
 
-              <Responsibilities jobData={job} />
+                  <Box mt={3}>
+                    <Typography
+                      // className="job-list-title"
+                      sx={theme.job_list_title}
+                      mb="16px"
+                    >
+                      Responsibilities:
+                    </Typography>
+                  </Box>
+
+                  <Responsibilities jobData={job} />
+                </Box>
+              ) : null}
               {/* </Stack> */}
             </Card>
+           
+            {job &&  !job?.minimum_requirements &&
+              !job?.preferred_requirements &&
+              !job?.responsibilities && (
+                <Grid container gap={"22px"} mt={22}>
+                  {jobCardData.map((data) => {
+                    console.log("InitialData", data)
+                      return (
+                        
+                        data.total_exp_min &&
+                        data.total_exp_max &&
+                        data.relevant_exp &&
+                        data.work_locations &&
+                        data.salary_range_min &&
+                        data.salary_range_max &&
+                        data.pri_tech_skills_l &&
+                        data.role_name && (
+                          <Grid xs={5}>
+                            <Card>
+                              <CardHeader
+                                // avatar={<CompanyAvatar url={employer_logo} />}
+                                title={
+                                  <Typography
+                                    variant="h6"
+                                    sx={{ fontWeight: 700, cursor: "pointer" }}
+                                  >
+                                    {data.job_title}
+                                  </Typography>
+                                }
+                                // subheader={
+                                //   <Typography variant="subtitle1">{employer_name}</Typography>
+                                // }
+                                // action={
+                                //   <Typography variant="secondary">
+                                //     {datePostedOn}
+                                //   </Typography>
+                                // }
+                              />
+                              <JobsCardContent
+                                job_title={data.job_title}
+                                total_exp_min={data.total_exp_min}
+                                total_exp_max={data.total_exp_max}
+                                relevant_exp={data.relevant_exp}
+                                work_locations={data.work_locations}
+                                salary_range_min={data.salary_range_min}
+                                salary_range_max={data.salary_range_max}
+                                pri_tech_skills_l={data.pri_tech_skills_l}
+                                role_name={data.role_name}
+                              />
+                            </Card>
+                          </Grid>
+                        )
+                      );
+                    })}
+                </Grid>
+              )}
           </Grid>
         </Grid>
       </Box>
