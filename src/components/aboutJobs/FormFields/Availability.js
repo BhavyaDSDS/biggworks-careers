@@ -222,7 +222,7 @@ function Availability(props) {
   const theme = useTheme();
 
 
-  // console.log("available slot ===",value)
+  console.log("available slot ===",value)
 
   const handleClick = (event, data) => {
     setAnchorEl(event.currentTarget);
@@ -293,6 +293,8 @@ function Availability(props) {
 
       } else {
 
+        console.log('Hello i am Bhavya ds',value)
+
         let tempList = [...value]
 
         let tempCardData = { ...cardContent };
@@ -333,6 +335,9 @@ function Availability(props) {
     setAnchorEl(null);
   }, [editId,state,name]);
 
+
+  
+
   return (
     <Box>
       <Typography variant="body2">{label}</Typography>
@@ -362,7 +367,7 @@ function Availability(props) {
           );
         })}
 
-        {value?.length <= maxCount && (
+        {(value?.length <= maxCount || value ==undefined) && (
           <Button
             aria-describedby={id}
             variant="outlined"

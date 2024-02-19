@@ -1,4 +1,5 @@
 import { JOBS_PATH } from "@/constants/TextConstants";
+import { Stack } from "@mui/material";
 import dayjs from "dayjs";
 
 //make a queary of nextPath and prevPath for pages
@@ -245,6 +246,14 @@ export const makeReadableFormate = (data) => {
   );
 };
 
+function convert12To24(time, from12To24 = true) {
+  if (from12To24) {
+    return dayjs(time, "hh:mm A").format("HH:mm");
+  } else {
+    return dayjs(time, "HH:mm").format("hh:mm A");
+  }
+}
+
 export const floatToInteger = (data) => {
   return data / 1;
 };
@@ -253,23 +262,53 @@ export const convertToLack = (number) => {
   return number / 100000;
 };
 
-export const LimitedJobDetail = (array) => {
-  let tempArray = [];
+export const formateOnboardValues = (values) => {
+  console.log("values to modified", values);
+  let copyValues = { ...values };
 
-  array?.forEach((data) => {
-    if (
-      data.total_exp_min &&
-      data.total_exp_max &&
-      data.relevant_exp &&
-      data.work_locations &&
-      data.salary_range_min &&
-      data.salary_range_max &&
-      data.pri_tech_skills_l &&
-      data.role_name &&
-      tempArray.length < 4
-    ) {
-      tempArray.push(data);
-    }
-  });
-  return tempArray;
+  if (copyValues?.current_location) {
+    copyValues.current_location = copyValues?.current_location?.value;
+  }
+  if (copyValues?.current_role) {
+    copyValues.current_role = copyValues?.current_role?.value;
+  }
+
+  if (isArrayIterable(copyValues.p_tech_skills)) {
+    copyValues.p_tech_skills = copyValues?.p_tech_skills?.map(
+      (data) => data.value
+    );
+  }
+  if (copyValues?.phone_number) {
+    copyValues.phone_number = `+91${copyValues?.phone_number}`;
+  }
+
+  if (copyValues?.date_of_joining) {
+    copyValues.date_of_joining = dayjs(copyValues?.date_of_joining).format(
+      "YYYY-MM-DD"
+    );
+  }
+  copyValues.expected_ctc=copyValues?.expected_ctc*100000
+  copyValues.current_ctc=copyValues?.current_ctc*100000
+
+  if (copyValues?.availablity_for_interview?.length > 0) {
+    let tempData = copyValues?.availablity_for_interview?.map((data) => {
+      return {
+        date: data.date,
+        dateObject: data.dateObject,
+        id: data.id,
+        time: [convert12To24(data.time[0]), convert12To24(data.time[1])],
+      };
+    });
+
+
+    copyValues.availablity_for_interview = tempData;
+  }
+
+  // copyValues?.delete(copyValues?.name)
+  // copyValues?.delete(copyValues?.relevant_experience)
+  delete copyValues?.name;
+
+  console.log("values to modified 1", copyValues);
+
+  return copyValues;
 };

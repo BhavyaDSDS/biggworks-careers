@@ -11,6 +11,7 @@ import {
   Toolbar,
   Typography,
   Link,
+  Snackbar,
 } from "@mui/material";
 import React, { useState } from "react";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
@@ -43,8 +44,8 @@ function JobDescription(props) {
   const [jobModalOpen, setJobModalOpen] = useState(false);
   const  [jobCardData, setJobCardData] = useState([]);
   const { globalState, dispatch } = useContext(MyContext);
-  const limitedJobCardRender = globalState?.job_list?.list?.slice(0, 4);
-  console.log("limitedJobCardRender", globalState?.job_list?.list);
+  const [jobDescription, setJobDescription] = useState(null);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const router = useRouter();
   console.log("jobjobjobjobjob", job);
   useEffect(() => {
@@ -102,8 +103,10 @@ console.log("jobCardDatajobCardData", jobCardData)
   //       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
   //   };
   const theme = useTheme();
-  const handleClick = (id) => {
-    router.push(`${id}`);
+  const handleClick = (data) => {
+    console.log("JobClick=====data", data);
+    setJobDescription(data);
+    router.push(`${data?.id}`);
   };
   console.log("Job***", job);
 useEffect(() =>{
@@ -148,6 +151,7 @@ useEffect(() =>{
 
             <Stack direction={"column"} spacing={4}>
               {globalState?.job_list?.list?.map((data) => {
+                console.log("jobsDescriptions", data);
                 return data.total_exp_min &&
                   data.total_exp_max &&
                   data.relevant_exp &&
@@ -208,6 +212,8 @@ useEffect(() =>{
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 {jobModalOpen && (
                   <JobForm
+                    jobData={job}
+                    setOpenSnackbar={setOpenSnackbar}
                     jobModalOpen={jobModalOpen}
                     handleOpenModal={handleOpenModal}
                     handleCloseModal={handleCloseModal}
@@ -422,6 +428,18 @@ useEffect(() =>{
           </Grid>
         </Grid>
       </Box>
+
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={openSnackbar}
+        onClose={() => {
+          setOpenSnackbar(false);
+        }}
+        message="Successfully submited"
+        key={"top+horizontal"}
+      />
+
+
     </div>
   );
 }

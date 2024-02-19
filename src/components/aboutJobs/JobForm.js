@@ -1,12 +1,20 @@
 "use client";
-import { Card, Modal, Stack, Typography, Grid, Button } from "@mui/material";
-import React from "react";
+import {
+  Card,
+  Modal,
+  Stack,
+  Typography,
+  Grid,
+  Button,
+  Snackbar,
+} from "@mui/material";
+import React, { useState } from "react";
 import { useTheme } from "@mui/system";
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import InputField from "./FormFields/InputField";
 import SliderField from "./FormFields/SliderField";
-import { createOptions } from "@/utils/CustomFunctions";
+import { createOptions, formateOnboardValues } from "@/utils/CustomFunctions";
 import SwitchInput from "./FormFields/SwitchInput";
 import { exp, lpa } from "@/constants/TextConstants";
 import AutoCompleteInput from "./FormFields/AutoCompleteInput";
@@ -16,7 +24,8 @@ import RadioInput from "./FormFields/RadioInput";
 import DateInput from "./FormFields/DateInput";
 import PdfUploaderInput from "./FormFields/PdfUploaderInput";
 import Availability from "./FormFields/Availability";
-function JobForm({ jobModalOpen, handleOpenModal, handleCloseModal }) {
+import api from "@/utils/HttpCommons";
+function JobForm({ jobModalOpen, handleOpenModal, handleCloseModal, jobData,setOpenSnackbar }) {
   const {
     handleSubmit,
     control,
@@ -28,20 +37,42 @@ function JobForm({ jobModalOpen, handleOpenModal, handleCloseModal }) {
     defaultValues: {
       fresher: false,
       total_experience: 1,
-      relavent_experience: 1,
+      relevant_experience: 1,
       resigned: true,
       buy_out: false,
-      availability_for_interview: [],
+      availablity_for_interview: [],
       notice_period_negotiable: "Non-negotiable",
+      current_role: null,
+      p_tech_skills: [],
+      current_location: null,
     },
   });
+
   const theme = useTheme();
   const fresher = watch("fresher");
   const resigned = watch("resigned");
   const notice_period = watch("notice_period");
   const result = createOptions(watch("total_experience"));
+
   const submit = (data) => {
     console.log("form data =", data);
+    let newData = formateOnboardValues(data);
+    let finalData = {
+      jobs: jobData?.id,
+      application_from: jobData?.application_from,
+      ...newData,
+    };
+    console.log("form data new data =", finalData);
+    api
+      .post("/jobs/directcand", finalData)
+      .then((response) => {
+        console.log("Response:", response.data?.success);
+        setOpenSnackbar(response.data?.success);
+        handleCloseModal()
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
   return (
     <div>
@@ -54,14 +85,14 @@ function JobForm({ jobModalOpen, handleOpenModal, handleCloseModal }) {
                 rules={{
                   required: "Name is Required",
                 }}
-                name="name"
+                name="first_name"
                 render={({ field: { onChange, onBlur, value } }) => (
                   <InputField
                     label="Name"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
-                    error={errors?.name?.message}
+                    error={errors?.first_name?.message}
                   />
                 )}
               />
@@ -172,7 +203,7 @@ function JobForm({ jobModalOpen, handleOpenModal, handleCloseModal }) {
                           <SelectInput
                             onChange={onChange}
                             value={value}
-                            error={errors?.current_role?.message}
+                            error={errors?.relevant_experience?.message}
                             label="Relavent Experience"
                             options={result}
                           />
@@ -394,6 +425,8 @@ function JobForm({ jobModalOpen, handleOpenModal, handleCloseModal }) {
           </form>
         </Card>
       </Modal>
+     
+      ;
     </div>
   );
 }
