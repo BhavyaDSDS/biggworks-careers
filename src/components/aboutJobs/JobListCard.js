@@ -60,10 +60,14 @@ function JobListCard() {
         </Stack>
 
         <Stack direction={"column"} spacing={4}>
-          {globalState?.job_list?.loading == "pending"
+          {globalState?.job_list?.loading == "pending" ||
+          globalState?.job_list?.loading == "init"
             ? Array.from({ length: 7 })?.map((_, idx) => {
                 return (
-                  <Card key={`hjwehj${idx}`} sx={{ height: "200px", padding:"20px" }}>
+                  <Card
+                    key={`hjwehj${idx}`}
+                    sx={{ height: "200px", padding: "20px" }}
+                  >
                     <Skeleton animation={"wave"} height={30} />
                     <Skeleton animation={"wave"} height={30} />
                     <Skeleton animation={"wave"} height={30} />
