@@ -41,8 +41,10 @@ function JobListCard() {
 
   return (
     <div>
-      <Box sx={{ width: "500px", marginTop: "50px", marginLeft: "30px" }}>
-        {/* <Grid container gap={6}>
+     <Box sx={{
+      // width:"500px", 
+      marginTop:"114px", marginLeft:"30px"}}>
+     {/* <Grid container gap={6}>
         <Grid xs={3} mt={6}> */}
         {/* {globalState?.job_list?.loading != LOADING_SUCCESS ? (
               <> */}
@@ -136,3 +138,7 @@ function JobListCard() {
 }
 
 export default JobListCard;
+
+
+
+

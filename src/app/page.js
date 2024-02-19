@@ -48,6 +48,7 @@ console.log("globalState?.job_list?.list[0]", globalState?.job_list?.list[0])
       >
         <Box marginBottom={22}>
           <Navbar/>
+          {/* <NavAppBarDrawer/> */}
         </Box>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={12} md={4} lg={3.5} xl={3.5}>

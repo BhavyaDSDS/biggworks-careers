@@ -1,7 +1,7 @@
 
 
 //api paths
-export const JOBS_PATH = "search/jobs/?application_from=self"
+export const JOBS_PATH = "search/jobs/?application_from=self&created_by__exclude=42"
 export const FILTERS_PATH = "b2c/filters"
 export const ONBOARDING_QUETIONS = "candidates/getcandonboard"
 

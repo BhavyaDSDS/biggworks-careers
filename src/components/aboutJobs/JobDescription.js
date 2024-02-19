@@ -13,6 +13,7 @@ import {
   Typography,
   Link,
   Snackbar,
+  Alert,
 } from "@mui/material";
 import React, { useState } from "react";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
@@ -53,7 +54,7 @@ function JobDescription(props) {
   const handleCloseModal = () => {
     setJobModalOpen(false);
   };
-
+console.log("jobCardData", globalState?.job_list?.list)
   //   const job = {
   //     job_title: "Data Engineer",
   //     relevant_exp: 5,
@@ -102,7 +103,7 @@ function JobDescription(props) {
         <Box>
           <Navbar />
         </Box>
-        <Grid container >
+        {/* <Grid container mt={7.5}> */}
         {/* <Grid container gap={30}> */}
 
           {/* <Grid xs={3} mt={6}>
@@ -171,13 +172,13 @@ function JobDescription(props) {
             </Stack>
            
           </Grid> */}
-          <Grid xs={8}>
+          {/* <Grid xs={8}> */}
             <Card
               sx={{
                 padding: "30px",
-                border: "1px solid gray",
+                border: "1px solid #d9d9d9",
                 marginTop: "110px",
-                width:"755px"
+                // width:  "869px"
               }}
             >
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -340,11 +341,16 @@ function JobDescription(props) {
               {/* </Stack> */}
             </Card>
 
-            {job &&
+            
+          {/* </Grid> */}
+        {/* </Grid> */}
+
+        {job &&
               !job?.minimum_requirements &&
               !job?.preferred_requirements &&
               !job?.responsibilities && (
-                <Grid container gap={"22px"} mt={22}>
+                
+                <Grid container gap={3} mt={12} >
                   {jobCardData?.map((data) => {
                     console.log("InitialData", data);
                     return (
@@ -357,9 +363,8 @@ function JobDescription(props) {
                       data.pri_tech_skills_l &&
                       data.role_name && (
                         <Grid xs={5}>
-                          <Card>
+                          <Card sx={{width:"100%"}}>
                             <CardHeader
-                              // avatar={<CompanyAvatar url={employer_logo} />}
                               title={
                                 <Typography
                                   variant="h6"
@@ -368,14 +373,7 @@ function JobDescription(props) {
                                   {data.job_title}
                                 </Typography>
                               }
-                              // subheader={
-                              //   <Typography variant="subtitle1">{employer_name}</Typography>
-                              // }
-                              // action={
-                              //   <Typography variant="secondary">
-                              //     {datePostedOn}
-                              //   </Typography>
-                              // }
+                             
                             />
                             <JobsCardContent
                               job_title={data.job_title}
@@ -394,20 +392,32 @@ function JobDescription(props) {
                     );
                   })}
                 </Grid>
-              )}
-          </Grid>
-        </Grid>
+              )
+              }
+
       </Box>
 
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={3000}
         open={openSnackbar}
         onClose={() => {
           setOpenSnackbar(false);
         }}
-        message="Successfully submited"
+        // message="Successfully submited"
         key={"top+horizontal"}
-      />
+      >
+         <Alert
+    severity="success"
+    variant="filled"
+    sx={{ width: '100%', fontSize:"22px" , display:"flex", justifyContent:"center", alignItems:"center"}}
+    onClose={() => {
+      setOpenSnackbar(false);
+    }}
+  >
+    Successfully submited
+  </Alert>
+        </Snackbar>
     </div>
   );
 }

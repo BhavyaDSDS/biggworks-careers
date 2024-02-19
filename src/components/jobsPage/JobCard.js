@@ -61,7 +61,7 @@ function JobCard(props) {
     console.log("Typography clicked");
     router.push(`jobs/${id}`);
   };
-
+console.log("employer_highlightsemployer_highlights", employer_highlights)
   return (
     <>
       <Card
@@ -78,6 +78,7 @@ function JobCard(props) {
               sx={{ fontWeight: 700, cursor: "pointer" }}
             >
               {job_title}
+              
             </Typography>
           }
           // subheader={
@@ -115,6 +116,7 @@ function JobCard(props) {
               >
                 {!isEmptyObject(employer_highlights) &&
                   Object.values(employer_highlights)?.map((data, idx) => {
+                    console.log("datadata", Object.values(employer_highlights))
                     return (
                       <Box key={idx}>
                         <Typography variant="subtitle1">

@@ -275,16 +275,19 @@ export const LimitedJobDetail = (array) => {
       data.salary_range_max &&
       data.pri_tech_skills_l &&
       data.role_name &&
-      tempArray.length < 5
+      tempArray.length < 4
     ) {
-      if (tempArray.length < 5) {
-        tempArray.push(data);
-      }
+      tempArray.push(data);
     }
-    return tempArray;
+    
+    // // Check if tempArray reaches the desired limit
+    // if (tempArray.length > 4) {
+    //   return; // Exit the forEach loop
+    // }
   });
-}
 
+  return tempArray;
+}
 
 
 export const formateOnboardValues = (values) => {
