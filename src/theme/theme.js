@@ -118,7 +118,7 @@ const theme = createTheme({
   },
 
   location_chips:{
-    backgroundColor:"#fff",
+    backgroundColor:"rgba(217, 217, 217, 0.3)",
     border:"1px solid #ececec"
   },
   jobDescription_outline: {},

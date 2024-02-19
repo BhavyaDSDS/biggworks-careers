@@ -47,19 +47,16 @@ function JobsCardContent({
                   </Typography>
                 </Stack>
               </Stack>
-            ) : (
-              <Skeleton variant="rectangle" width={"240px"}></Skeleton>
-            )}
-            {work_locations ? (
-              <Stack direction={"row"} spacing={1} aalignItems={"flex-start"}>
-                <Icon
-                  icon="fluent:location-24-regular"
-                  style={{ fontSize: "22px" }}
-                />
-                <LocationView list={work_locations} />
+            ) : null}
+            {work_locations !== null && (
+              <Stack
+                direction={"row"}
+                spacing={1}
+                flexWrap={"nowrap"}
+              >
+                {/* <LocationView list={work_locations} /> */}
+                <ResponsiveChips list={work_locations} type={"location"} />
               </Stack>
-            ) : (
-              <Skeleton variant="rectangle" width={"240px"}></Skeleton>
             )}
             {salary_range_min &&
             floatToInteger(salary_range_min) &&
@@ -75,14 +72,8 @@ function JobsCardContent({
                   {convertToLack(salary_range_max)} LPA
                 </Typography>
               </Stack>
-            ) : (
-              <Skeleton variant="rectangle" width={"240px"}></Skeleton>
-            )}
-            {pri_tech_skills_l ? (
-              <ResponsiveChips list={pri_tech_skills_l} />
-            ) : (
-              <Skeleton variant="rectangle" width={"240px"}></Skeleton>
-            )}
+            ) : null}
+            <ResponsiveChips list={pri_tech_skills_l} />
           </Stack>
         </Box>
       </CardContent>
