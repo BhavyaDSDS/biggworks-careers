@@ -262,6 +262,31 @@ export const convertToLack = (number) => {
   return number / 100000;
 };
 
+export const LimitedJobDetail = (array) => {
+  let tempArray = [];
+
+  array?.forEach((data) => {
+    if (
+      data.total_exp_min &&
+      data.total_exp_max &&
+      data.relevant_exp &&
+      data.work_locations &&
+      data.salary_range_min &&
+      data.salary_range_max &&
+      data.pri_tech_skills_l &&
+      data.role_name &&
+      tempArray.length < 5
+    ) {
+      if (tempArray.length < 5) {
+        tempArray.push(data);
+      }
+    }
+    return tempArray;
+  });
+}
+
+
+
 export const formateOnboardValues = (values) => {
   console.log("values to modified", values);
   let copyValues = { ...values };

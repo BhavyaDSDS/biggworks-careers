@@ -1,3 +1,4 @@
+"use client";
 import {
   AppBar,
   Box,
@@ -36,43 +37,23 @@ import { Icon } from "@iconify/react";
 
 import { LimitedJobDetail } from "@/utils/CustomFunctions";
 
-
-
-
 function JobDescription(props) {
   const { job } = props;
   const [jobModalOpen, setJobModalOpen] = useState(false);
-  const  [jobCardData, setJobCardData] = useState([]);
+  const [jobCardData, setJobCardData] = useState([]);
   const { globalState, dispatch } = useContext(MyContext);
-  const [jobDescription, setJobDescription] = useState(null);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const limitedJobCardRender = globalState?.job_list?.list?.slice(0, 4);
+  console.log("limitedJobCardRender", globalState?.job_list?.list);
   const router = useRouter();
-  console.log("jobjobjobjobjob", job);
-  useEffect(() => {
-    let quary = createQuary(globalState.selectedFilters);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
-    if (!isEmptyObject(globalState.selectedFilters)) {
-      getJobs(quary, dispatch);
-    }
-  }, [globalState.selectedFilters]);
-
-
-
-console.log("jobCardDatajobCardData", jobCardData)
-
-  console.log("globalStateglobalState_JobDescription", globalState);
   const handleOpenModal = () => {
     setJobModalOpen(true);
   };
-  console.log("dataJobId", globalState?.job_list?.list[0]?.id);
   const handleCloseModal = () => {
     setJobModalOpen(false);
   };
 
-  console.log(
-    "globalState?.job_list?.list?.length",
-    globalState?.job_list?.list
-  );
   //   const job = {
   //     job_title: "Data Engineer",
   //     relevant_exp: 5,
@@ -103,40 +84,30 @@ console.log("jobCardDatajobCardData", jobCardData)
   //       "A front-end web developer is probably what most people think of as a “web developer”. A front-end web developer is responsible for implementing visual elements that users see and interact with in a web application. They are usually supported by back-end web developers, who are responsible for server-side application logic and integration of the work front-end developers do. Writing a good job description and a corresponding job ad requires proper separation of concerns. Posting a generic web developer job description in your ad when you are looking for an advanced front-end web developer, will bring numerous applications from people who are specialized in building back-end web services, or web designers who have absolutely no knowledge about programming.There are technologies and knowledge that are common to all web developer jobs. This article will provide you with a sample front-end web developer job description that will help you write a perfect job ad and assure that you easily find and hire the person that matches your specific criteria.",
   //   };
   const theme = useTheme();
-  const handleClick = (data) => {
-    console.log("JobClick=====data", data);
-    setJobDescription(data);
-    router.push(`${data?.id}`);
+  const handleClick = (id) => {
+    router.push(`${id}`);
   };
   console.log("Job***", job);
-useEffect(() =>{
+  useEffect(() => {
+    if (globalState?.job_list?.list?.length > 0) {
+      const limit = LimitedJobDetail(globalState?.job_list?.list);
+      console.log("qqq limited numbers hsbfauz", limit);
+      setJobCardData(limit);
+    }
+  }, [globalState]);
 
- 
-
-  if(globalState?.job_list?.list?.length > 0) {
-
-    const limit = LimitedJobDetail(globalState?.job_list?.list)
-    console.log("qqq limited numbers hsbfauz",limit)
-    setJobCardData(limit);
-
-  }
-
-
-
-
-}, [globalState])
-   
   return (
     <div>
       <Box width={"95%"} margin={auto}>
-        <Box marginBottom={12}>
+        <Box>
           <Navbar />
         </Box>
-        <Grid container gap={30}>
-          <Grid xs={3} mt={6}>
-            {/* {globalState?.job_list?.loading != LOADING_SUCCESS ? (
-              <> */}
+        <Grid container >
+        {/* <Grid container gap={30}> */}
 
+          {/* <Grid xs={3} mt={6}>
+          
+           
             <Stack
               sx={{ cursor: "pointer" }}
               onClick={() => router.push("/")}
@@ -160,25 +131,27 @@ useEffect(() =>{
                   data.salary_range_max &&
                   data.pri_tech_skills_l &&
                   data.role_name ? (
-                  <Card sx={{cursor:"pointer"}} onClick={() => handleClick(data.id)}>
+                  <Card
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => handleClick(data.id)}
+                  >
                     <CardHeader
-                      // avatar={<CompanyAvatar url={employer_logo} />}
                       title={
-                        <Typography
-                          variant="h6"
-                          sx={{ fontWeight: 700, cursor: "pointer" }}
-                        >
-                          {data.job_title}
-                        </Typography>
+                        data.job_title ? (
+                          <Typography
+                            variant="h6"
+                            sx={{ fontWeight: 700, cursor: "pointer" }}
+                          >
+                            {data.job_title}
+                          </Typography>
+                        ) : (
+                          <Skeleton
+                            variant="rectangle"
+                            width={"240px"}
+                          ></Skeleton>
+                        )
                       }
-                      // subheader={
-                      //   <Typography variant="subtitle1">{employer_name}</Typography>
-                      // }
-                      // action={
-                      //   <Typography variant="secondary">
-                      //     {datePostedOn}
-                      //   </Typography>
-                      // }
+                     
                     />
                     <JobsCardContent
                       job_title={data.job_title}
@@ -196,17 +169,15 @@ useEffect(() =>{
                 ) : null;
               })}
             </Stack>
-            {/* </>
-            ) : (
-              ""
-            )} */}
-          </Grid>
-          <Grid xs={6}>
+           
+          </Grid> */}
+          <Grid xs={8}>
             <Card
               sx={{
                 padding: "30px",
                 border: "1px solid gray",
                 marginTop: "110px",
+                width:"755px"
               }}
             >
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -220,6 +191,7 @@ useEffect(() =>{
                   />
                 )}
               </Box>
+
               <Card
                 sx={{
                   backgroundColor: "#F2FEFF",
@@ -327,7 +299,6 @@ useEffect(() =>{
               job?.preferred_requirements &&
               job?.responsibilities ? (
                 <Box>
-                  
                   <Box>
                     <Typography
                       mt={2}
@@ -343,7 +314,6 @@ useEffect(() =>{
 
                   <Box mt={3}>
                     <Typography
-                      
                       // lassName="job-list-title"
                       sx={theme.job_list_title}
                       mb="16px"
@@ -369,60 +339,60 @@ useEffect(() =>{
               ) : null}
               {/* </Stack> */}
             </Card>
-           
-            {job &&  !job?.minimum_requirements &&
+
+            {job &&
+              !job?.minimum_requirements &&
               !job?.preferred_requirements &&
               !job?.responsibilities && (
                 <Grid container gap={"22px"} mt={22}>
-                  {jobCardData.map((data) => {
-                    console.log("InitialData", data)
-                      return (
-                        
-                        data.total_exp_min &&
-                        data.total_exp_max &&
-                        data.relevant_exp &&
-                        data.work_locations &&
-                        data.salary_range_min &&
-                        data.salary_range_max &&
-                        data.pri_tech_skills_l &&
-                        data.role_name && (
-                          <Grid xs={5}>
-                            <Card>
-                              <CardHeader
-                                // avatar={<CompanyAvatar url={employer_logo} />}
-                                title={
-                                  <Typography
-                                    variant="h6"
-                                    sx={{ fontWeight: 700, cursor: "pointer" }}
-                                  >
-                                    {data.job_title}
-                                  </Typography>
-                                }
-                                // subheader={
-                                //   <Typography variant="subtitle1">{employer_name}</Typography>
-                                // }
-                                // action={
-                                //   <Typography variant="secondary">
-                                //     {datePostedOn}
-                                //   </Typography>
-                                // }
-                              />
-                              <JobsCardContent
-                                job_title={data.job_title}
-                                total_exp_min={data.total_exp_min}
-                                total_exp_max={data.total_exp_max}
-                                relevant_exp={data.relevant_exp}
-                                work_locations={data.work_locations}
-                                salary_range_min={data.salary_range_min}
-                                salary_range_max={data.salary_range_max}
-                                pri_tech_skills_l={data.pri_tech_skills_l}
-                                role_name={data.role_name}
-                              />
-                            </Card>
-                          </Grid>
-                        )
-                      );
-                    })}
+                  {jobCardData?.map((data) => {
+                    console.log("InitialData", data);
+                    return (
+                      data.total_exp_min &&
+                      data.total_exp_max &&
+                      data.relevant_exp &&
+                      data.work_locations &&
+                      data.salary_range_min &&
+                      data.salary_range_max &&
+                      data.pri_tech_skills_l &&
+                      data.role_name && (
+                        <Grid xs={5}>
+                          <Card>
+                            <CardHeader
+                              // avatar={<CompanyAvatar url={employer_logo} />}
+                              title={
+                                <Typography
+                                  variant="h6"
+                                  sx={{ fontWeight: 700, cursor: "pointer" }}
+                                >
+                                  {data.job_title}
+                                </Typography>
+                              }
+                              // subheader={
+                              //   <Typography variant="subtitle1">{employer_name}</Typography>
+                              // }
+                              // action={
+                              //   <Typography variant="secondary">
+                              //     {datePostedOn}
+                              //   </Typography>
+                              // }
+                            />
+                            <JobsCardContent
+                              job_title={data.job_title}
+                              total_exp_min={data.total_exp_min}
+                              total_exp_max={data.total_exp_max}
+                              relevant_exp={data.relevant_exp}
+                              work_locations={data.work_locations}
+                              salary_range_min={data.salary_range_min}
+                              salary_range_max={data.salary_range_max}
+                              pri_tech_skills_l={data.pri_tech_skills_l}
+                              role_name={data.role_name}
+                            />
+                          </Card>
+                        </Grid>
+                      )
+                    );
+                  })}
                 </Grid>
               )}
           </Grid>
@@ -438,8 +408,6 @@ useEffect(() =>{
         message="Successfully submited"
         key={"top+horizontal"}
       />
-
-
     </div>
   );
 }

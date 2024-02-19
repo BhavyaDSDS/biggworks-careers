@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 import { getLocations, getRoles, getSkills } from "@/app/api/ApiHandlers";
 import { MyContext } from "@/context/ContextProvider";
 import { formateQueary } from "@/utils/CustomFunctions";

@@ -38,56 +38,8 @@ const WorkType = ({ kind }) => {
 
 
 const CityData = ({ city }) => {
-  console.log("city==", city);
-  console.log("globalglobal",global)
-  // const [visibleChips, setVisibleChips] = useState([]);
-  // const [hiddenChips, setHiddenChips] = useState([]);
   
-  
-  // const calculateEffectiveWidth = useCallback((string) => {
-  
-  // const fontSize = theme.typography.fontSize
-  // const averageCharWidth = fontSize * 0.6;
-  // const horizontalPadding= 15;
-  // const margin = 4;
-  
-  // let textWidth = string?.length * averageCharWidth;
-  // const effectiveWidth = textWidth + horizontalPadding + margin;
-  // return parseFloat(effectiveWidth.toFixed(1));
-  // }, []);
-  
-  // const handleContainerResize = useCallback(() =>{
-  //   const containerWidth = document.querySelector(".responsiveContainer");
-  //   const currentContainerWidth = containerWidth.offsetWidth;
-  
-  //   let totalWidth = 0;
-  //   let visibleChipsArray = [];
-  //   let hiddenChipsArray = [];
-  
-  //   for (let i=0; i<list?.length; i++){
-  //     const chipWidth = calculateEffectiveWidth(list[i]);
-  //     if (totalWidth + chipWidth <= currentContainerWidth){
-  //       visibleChipsArray.push(list[i]);
-  //       totalWidth += chipWidth;
-  
-  //     }
-  //     else{
-  //       hiddenChipsArray.push(list[i]);
-  //     }
-  //   }
-  //   setVisibleChips(visibleChipsArray);
-  //   setHiddenChips(hiddenChipsArray);
-  // },[list, calculateEffectiveWidth]
-  // );
-  
-  // useEffect(() =>{
-  //   window.removeEventListener("resize", handleContainerResize);
-  //   handleContainerResize();
-  //   return () =>{
-  //     window.removeEventListener("resize", handleContainerResize);
-  //   };
-  
-  // }, [handleContainerResize]);
+ 
 
   console.log("city?.location_lcity?.location_l", city?.location_l)
   return (

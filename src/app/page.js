@@ -32,6 +32,13 @@ function Home() {
       getJobs(quary, dispatch);
     }
   }, [globalState.selectedFilters]);
+
+
+
+
+
+
+  
 console.log("globalState?.job_list?.list[0]", globalState?.job_list?.list[0])
   return (
     <Box>
