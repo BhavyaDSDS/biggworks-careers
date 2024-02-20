@@ -60,12 +60,9 @@ function JobCard(props) {
     console.log("Typography clicked");
     router.push(`jobs/${id}`);
   };
-console.log("employer_highlightsemployer_highlights", employer_highlights)
   return (
     <>
-      <Card
-       
-      >
+      <Card>
         <CardHeader
           // avatar={<CompanyAvatar url={employer_logo} />}
           title={
@@ -74,7 +71,6 @@ console.log("employer_highlightsemployer_highlights", employer_highlights)
               sx={{ fontWeight: 700, cursor: "pointer" }}
             >
               {job_title}
-              
             </Typography>
           }
           // subheader={
@@ -103,33 +99,19 @@ console.log("employer_highlightsemployer_highlights", employer_highlights)
             alignItems="center"
             sx={{ width: "100%" }}
           >
-            <Box sx={{ marginLeft: "20px",  width:"100%" }}>
-              {/* <Stack
-                direction="row"
-                divider={<span>•</span>}
-                spacing={1}
-                alignItems="center"
-              > */}
-                {!isEmptyObject(employer_highlights) &&
-                  // Object.values(employer_highlights)?.map((data, idx) => {
-                  //   console.log("datadata", Object.values(employer_highlights))
-                  //   return (
-                  //     <Box key={idx}>
-                  //       <Typography variant="subtitle1">
-                  //         {data && data}
-                  //       </Typography>
-                        <ResponsiveChips type="companyInfo" list={Object.values(employer_highlights)}/>
-                  //     </Box>
-                  //   );
-                  // })
-                  }
-              {/* </Stack> */}
+            <Box sx={{ marginLeft: "20px", width: "100%" }}>
+              {!isEmptyObject(employer_highlights) && (
+                <ResponsiveChips
+                  type="companyInfo"
+                  list={Object.values(employer_highlights)}
+                />
+              )}
             </Box>
             <Box>
               <Button
                 variant={isHoverd ? "contained" : ""}
                 endIcon={<ArrowRightAltIcon />}
-                // 
+                //
                 onClick={() => handleClick(id)}
                 sx={{ cursor: "pointer" }}
                 onMouseEnter={() => setIsHovered(true)}

@@ -22,7 +22,7 @@ import theme from "@/theme/theme";
 
 function Home() {
   const { globalState, dispatch } = useContext(MyContext);
-  
+
   // console.log("api data =======",  === 0);
 
   useEffect(() => {
@@ -33,13 +33,7 @@ function Home() {
     }
   }, [globalState.selectedFilters]);
 
-
-
-
-
-
-  
-console.log("globalState?.job_list?.list[0]", globalState?.job_list?.list[0])
+  console.log("globalState?.job_list?.list[0]", globalState?.job_list?.list[0]);
   return (
     <Box>
       <Container
@@ -47,8 +41,7 @@ console.log("globalState?.job_list?.list[0]", globalState?.job_list?.list[0])
         sx={{ marginTop: "50px", marginBottom: "150px" }}
       >
         <Box marginBottom={22}>
-          <Navbar/>
-          {/* <NavAppBarDrawer/> */}
+          <Navbar />
         </Box>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={12} md={4} lg={3.5} xl={3.5}>
@@ -71,11 +64,18 @@ console.log("globalState?.job_list?.list[0]", globalState?.job_list?.list[0])
               ) : (
                 <>
                   {globalState?.job_list?.list?.map((data) => {
-                    console.log("globalState?.job_list?.list?.data", data)
-                    return( data.job_title && data.total_exp_min && data.total_exp_max && data.relevant_exp
-                       && data.work_locations && data.salary_range_min && data.salary_range_max && data.pri_tech_skills_l && data.role_name &&
-                    <JobCard {...data} key={data?.id} />)
-})}
+                    return (
+                      data.job_title &&
+                      data.total_exp_min &&
+                      data.total_exp_max &&
+                      data.relevant_exp &&
+                      data.work_locations &&
+                      data.salary_range_min &&
+                      data.salary_range_max &&
+                      data.pri_tech_skills_l &&
+                      data.role_name && <JobCard {...data} key={data?.id} />
+                    );
+                  })}
                 </>
               )}
             </Stack>
