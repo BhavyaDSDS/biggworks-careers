@@ -19,7 +19,7 @@ import {
   converToLack,
 } from "@/utils/CustomFunctions";
 import ResponsiveChips from "../commons/ResponsiveChips";
-import { APPLY_BUTTON_STRING } from "@/constants/TextConstants";
+import { APPLY_BUTTON_STRING, VIEW_STRING } from "@/constants/TextConstants";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { useCallback, useState } from "react";
 import LocationView from "./LocationView";
@@ -47,7 +47,6 @@ function JobCard(props) {
   } = props;
 
   const datePostedOn = getDifferenceInDate(posted_on);
-
   const [isHoverd, setIsHovered] = useState(false);
   // console.log("date highlights =====", employer_highlights);
 
@@ -65,10 +64,7 @@ console.log("employer_highlightsemployer_highlights", employer_highlights)
   return (
     <>
       <Card
-        onClick={() => handleClick(id)}
-        sx={{ cursor: "pointer" }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+       
       >
         <CardHeader
           // avatar={<CompanyAvatar url={employer_logo} />}
@@ -107,35 +103,39 @@ console.log("employer_highlightsemployer_highlights", employer_highlights)
             alignItems="center"
             sx={{ width: "100%" }}
           >
-            <Box sx={{ marginLeft: "20px" }}>
-              <Stack
+            <Box sx={{ marginLeft: "20px",  width:"100%" }}>
+              {/* <Stack
                 direction="row"
                 divider={<span>•</span>}
                 spacing={1}
                 alignItems="center"
-              >
+              > */}
                 {!isEmptyObject(employer_highlights) &&
-                  Object.values(employer_highlights)?.map((data, idx) => {
-                    console.log("datadata", Object.values(employer_highlights))
-                    return (
-                      <Box key={idx}>
-                        <Typography variant="subtitle1">
-                          {data && data}
-                        </Typography>
-                      </Box>
-                    );
-                  })}
-              </Stack>
+                  // Object.values(employer_highlights)?.map((data, idx) => {
+                  //   console.log("datadata", Object.values(employer_highlights))
+                  //   return (
+                  //     <Box key={idx}>
+                  //       <Typography variant="subtitle1">
+                  //         {data && data}
+                  //       </Typography>
+                        <ResponsiveChips type="companyInfo" list={Object.values(employer_highlights)}/>
+                  //     </Box>
+                  //   );
+                  // })
+                  }
+              {/* </Stack> */}
             </Box>
             <Box>
               <Button
                 variant={isHoverd ? "contained" : ""}
                 endIcon={<ArrowRightAltIcon />}
-                onClick={() => {
-                  applyJob(application_link?.[0]);
-                }}
+                // 
+                onClick={() => handleClick(id)}
+                sx={{ cursor: "pointer" }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
               >
-                {APPLY_BUTTON_STRING}
+                {VIEW_STRING}
               </Button>
             </Box>
           </Stack>

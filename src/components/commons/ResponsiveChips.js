@@ -8,12 +8,13 @@ import theme from "../../theme/theme";
 
 function ResponsiveChips({ list, type }) {
   console.log("location chips list ", list);
+  let outerIndex = 0;
 
   const [visibleChips, setVisibleChips] = useState([]);
   const [hiddenChips, setHiddenChips] = useState([]);
   const theme = useTheme();
   const containerRef = useRef(null);
-
+  console.log("hiddenChipshiddenChips", isArrayIterable(hiddenChips));
   const calculateEffectiveWidth = useCallback(
     (string) => {
       console.log("effective width", string);
@@ -59,6 +60,23 @@ function ResponsiveChips({ list, type }) {
           hiddenChipsArray.push(temp);
         }
       }
+    } else if (type == "companyInfo") {
+      for (let i = 0; i < list?.length; i++) {
+        const chipWidth = calculateEffectiveWidth(list[i]);
+        console.log(
+          "companyInfochips",
+          list?.length,
+          totalWidth + chipWidth,
+          currentContainerWidth
+        );
+        if (totalWidth + chipWidth <= currentContainerWidth) {
+          visibleChipsArray.push(list[i]);
+          console.log("visibleChipsArray");
+          totalWidth += chipWidth;
+        } else {
+          hiddenChipsArray.push(list[i]);
+        }
+      }
     } else {
       for (let i = 0; i < list?.length; i++) {
         const chipWidth = calculateEffectiveWidth(list[i]);
@@ -89,6 +107,7 @@ function ResponsiveChips({ list, type }) {
   const office = "fluent:building-24-regular";
   const hybrid = "fluent:building-home-16-regular";
   const remote = "fluent:home-16-regular";
+  console.log("biggworks",outerIndex, visibleChips.length);
 
   return (
     <div className="responsiveContainer" ref={containerRef}>
@@ -98,16 +117,24 @@ function ResponsiveChips({ list, type }) {
             icon="fluent:location-24-regular"
             style={{ fontSize: "22px" }}
           />
-        ) : (
+        ) : type === "companyInfo" ? null : (
           <Icon
             icon="fluent:window-wrench-24-regular"
             style={{ fontSize: "22px" }}
           />
         )}
-        <Stack direction="row" spacing={0.5}>
+        <Stack
+          direction="row"
+          spacing={0.5}
+          divider={
+            type === "companyInfo" && outerIndex < visibleChips.length - 1 ? (
+              <span>•</span>
+            ) : null
+          }
+        >
           {visibleChips?.map((data, idx) => {
-            console.log("return type chips", data);
-
+           
+            outerIndex = idx;
             return type === "location" ? (
               <Chip
                 sx={theme.location_chips}
@@ -129,6 +156,8 @@ function ResponsiveChips({ list, type }) {
                 variant="outlined"
                 size="small"
               />
+            ) : type === "companyInfo" ? (
+              <Typography>{data}</Typography>
             ) : (
               <Chip
                 sx={theme.skill_chips}
@@ -140,13 +169,14 @@ function ResponsiveChips({ list, type }) {
             );
           })}
 
-          <Tooltip
+       {isArrayIterable(hiddenChips) && type === "companyInfo" &&  <Tooltip
             placement="top"
             title={
               <Box>
                 <Stack direction="row" flexWrap="wrap" gap={0.5}>
-                  {hiddenChips?.map((data, idx) =>
-                    type === "location" ? (
+                  {hiddenChips?.map((data, idx) => {
+                    console.log("comanyInfoData", data);
+                    return type === "location" ? (
                       <Chip
                         sx={theme.location_chips}
                         key={idx}
@@ -171,6 +201,8 @@ function ResponsiveChips({ list, type }) {
                         variant="outlined"
                         size="small"
                       />
+                    ) : type === "companyInfo" ? (
+                      <Typography>{data}</Typography>
                     ) : (
                       <Chip
                         sx={theme.skill_chips}
@@ -179,23 +211,29 @@ function ResponsiveChips({ list, type }) {
                         variant="outlined"
                         size="small"
                       />
-                    )
-                  )}
+                    );
+                  })}
                 </Stack>
               </Box>
             }
           >
-            {isArrayIterable(hiddenChips) && (
-              <Chip
-                sx={
-                  type === "location" ? theme.location_chips : theme.skill_chips
-                }
-                label={` + ${hiddenChips.length}`}
-                variant="outlined"
-                size="small"
-              />
+            {isArrayIterable(hiddenChips) && type === "companyInfo" ? (
+              <Typography>...</Typography>
+            ) : (
+              hiddenChips.length > 0 && (
+                <Chip
+                  sx={
+                    type === "location"
+                      ? theme.location_chips
+                      : theme.skill_chips
+                  }
+                  label={` + ${hiddenChips.length}`}
+                  variant="outlined"
+                  size="small"
+                />
+              )
             )}
-          </Tooltip>
+          </Tooltip>}
         </Stack>
       </Stack>
     </div>

@@ -19,7 +19,6 @@ function Footer() {
         <Box>
           <Box>
             <img src={KALIBRE_TITLE} alt="kalibre ai" 
-            
             width={"10%"}
             />
           </Box>

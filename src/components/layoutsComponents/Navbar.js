@@ -44,11 +44,14 @@ const navItems = [
 function Navbar() {
   const theme = useTheme();
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const handleDrawerToggle = () => {
+  const handleDrawerToggleOpen = () => {
     setMobileDrawerOpen(true);
   };
+  const handleDrawerToggleClose = () =>{
+    setMobileDrawerOpen(false)
+  }
   const drawer = (
-    <Box onClick={handleDrawerToggle}>
+    <Box onClick={handleDrawerToggleOpen}>
       <Box>
         <Link href="https://biggworks.com/">
           <img
@@ -135,8 +138,8 @@ function Navbar() {
               color="inherit"
               aria-label="open drawer"
               edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, color: "red" }}
+              onClick={handleDrawerToggleOpen}
+              sx={{ mr: 2, color: "black" }}
             >
               <MenuIcon />
             </IconButton>
@@ -236,7 +239,7 @@ function Navbar() {
         <Drawer
           anchor="right"
           open={mobileDrawerOpen}
-          onClose={handleDrawerToggle}
+          onClose={handleDrawerToggleClose}
           sx={{
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {

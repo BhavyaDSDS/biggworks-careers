@@ -23,7 +23,7 @@ function JobsCardContent({
   pri_tech_skills_l,
   role_name,
 }) {
-  console.log("total_exp_mintotal_exp_min", work_locations);
+  console.log("total_exp_mintotal_exp_min", pri_tech_skills_l);
   return (
     <div>
       <CardContent sx={{ padding: "0px 20px" }}>
@@ -47,8 +47,8 @@ function JobsCardContent({
                   </Typography>
                 </Stack>
               </Stack>
-            ) : null}
-            {work_locations !== null && (
+            ) : <Skeleton></Skeleton>}
+            {work_locations !== null && work_locations?.length > 0 ? (
               <Stack
                 direction={"row"}
                 spacing={1}
@@ -57,7 +57,7 @@ function JobsCardContent({
                 {/* <LocationView list={work_locations} /> */}
                 <ResponsiveChips list={work_locations} type={"location"} />
               </Stack>
-            )}
+            ):<Skeleton></Skeleton>}
             {salary_range_min &&
             floatToInteger(salary_range_min) &&
             salary_range_max &&
@@ -72,9 +72,11 @@ function JobsCardContent({
                   {convertToLack(salary_range_max)} LPA
                 </Typography>
               </Stack>
-            ) : null}
-            <ResponsiveChips list={pri_tech_skills_l} />
-          </Stack>
+            ) : <Skeleton></Skeleton>}
+
+            
+{      pri_tech_skills_l != null &&  pri_tech_skills_l.length >0   ? ( <ResponsiveChips list={pri_tech_skills_l} />):<Skeleton></Skeleton>
+}          </Stack>
         </Box>
       </CardContent>
     </div>
